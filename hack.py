@@ -5,8 +5,8 @@ help_text = """
 -h --help       prints help menu (you're looking at it)
 
 Usage:
-python cracker.py <password file> <wordlist file>
-python cracker.py pswd.txt rockyou.txt
+python hack.py <password file> <wordlist file>
+python hack.py pswd.txt rockyou.txt
 
 """
 try:
@@ -27,6 +27,7 @@ except IndexError:
     print help_text
     exit(0)
 
+#using md5 function to encryct passwords
 hash_function = hashlib.md5
 
 
