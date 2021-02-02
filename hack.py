@@ -31,35 +31,37 @@ except IndexError:
 def simple_hash(value):
     return hash_function(value).hexdigest()
 
-
+# A dictionary which stores only passwords 
 dictData = {}  
+
+#Filtering data from the input file with the passwords
 with open(sys.argv[1], 'r') as f:
     for line in f:
-        data = line.split()
-        dictData[data[0]] = data[1]
+        data = line.split() #Spliting the data for every line
+        dictData[data[0]] = data[1] #Storing passwords 
 
 with open(sys.argv[2], 'r') as f:
     password_list = f.read()
+    
+password_list = password_list.split("\n") 
 
-password_list = password_list.split("\n")
 
-n_pass = len(password_list)
-
+#Checking if passwords in the password's file match to the word list file 
 print "Cracking...\n"
 found = False
 for key in dictData:
     for test in password_list:
 		try:
 			nacl.pwhash.verify(dictData[key], test)
-			print "Found password for --> " ,key
-			print "password is -->", test + "\n"
+			print "Found password for --> " +key
+			print "password is -->" +test + "\n"
 			found = True
 			break
 		except:
 			pass
             
 if found == True:
-    print "Found " 
+    print "Success! Passwords in the txt file given match to the input file  " 
 else:
     print "No matching passwords found"
 

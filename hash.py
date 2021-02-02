@@ -13,7 +13,7 @@ if len(sys.argv)>1:
 # A dictionary object which stores user's data (username, password)
 userData = {
     "user001" : "hello",
-    "user002" : "qwerty",
+    "user002" : "pass2",
     "user003" : "athens",
     "user004" : "pass4",
     "user005" : "pass5",
