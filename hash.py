@@ -3,33 +3,30 @@ import hashlib
 
 help_text = """
 Usage:
-python hash.py <username> <password>
+python hash.py 
 """
-# make sure that the first argument is given
-try:
-    sys.argv[1]
-except IndexError:
-    print help_text
-    exit(0)
- 
-# check for second argument
-try:
-    sys.argv[1]
-except IndexError:
-    print help_text
-    exit(0)
-# check for third argument
-try:
-    sys.argv[2]
-except IndexError:
+
+if len(sys.argv)>1:
     print help_text
     exit(0)
 
-hash_function = hashlib.md5
+#using sha256 function to encryct passwords
+hash_function = hashlib.sha256
 
-username = sys.argv[1]
-hashed_pass = hash_function(sys.argv[2]).digest()
+# A dictionary object which stores user's data (username, password)
+userData = {
+    "user001" : "hello",
+    "user002" : "qwerty",
+    "user003" : "athens",
+    "user004" : "pass4",
+    "user005" : "pass5",
+    "user006" : "pass6",
+ }
 
-f = open("passwords.txt", "a")
-f.write(username + "\t")
-f.write(hashed_pass + "\n")
+f = open("passwords.txt", "w")
+#iterrate throught userData's dictionary and store the data into a file named passwords.txt
+for username,password in sorted(userData.iteritems()): 
+    hashed_password = hash_function(password).hexdigest()
+    f.write(username + "\t")
+    f.write(hashed_password + "\n")
+f.close()

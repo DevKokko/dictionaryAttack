@@ -6,7 +6,7 @@ help_text = """
 
 Usage:
 python hack.py <password file> <wordlist file>
-python hack.py pswd.txt rockyou.txt
+python hack.py passwords.txt rockyou.txt
 
 """
 try:
@@ -27,12 +27,13 @@ except IndexError:
     print help_text
     exit(0)
 
-#using md5 function to encryct passwords
-hash_function = hashlib.md5
+#Using sha256 function to encryct passwords
+hash_function = hashlib.sha256
 
-
+#A function that takes a password value and returns a hashed value
 def simple_hash(value):
-    return hash_function(value).digest()
+    return hash_function(value).hexdigest()
+
 
 dictData = {}  
 with open(sys.argv[1], 'r') as f:
@@ -51,6 +52,7 @@ print "Cracking...\n"
 found = False
 for key in dictData:
     for test in password_list:
+    
         if simple_hash(test) == dictData[key]:
             print "Found password for --> " ,key
             print "password is -->", test + "\n"
