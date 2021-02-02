@@ -1,5 +1,5 @@
-import hashlib
 import sys
+import nacl.pwhash
 
 help_text = """
 -h --help       prints help menu (you're looking at it)
@@ -27,9 +27,6 @@ except IndexError:
     print help_text
     exit(0)
 
-#Using sha256 function to encryct passwords
-hash_function = hashlib.sha256
-
 #A function that takes a password value and returns a hashed value
 def simple_hash(value):
     return hash_function(value).hexdigest()
@@ -52,12 +49,15 @@ print "Cracking...\n"
 found = False
 for key in dictData:
     for test in password_list:
-    
-        if simple_hash(test) == dictData[key]:
-            print "Found password for --> " ,key
-            print "password is -->", test + "\n"
-            found = True
-            break
+		try:
+			nacl.pwhash.verify(dictData[key], test)
+			print "Found password for --> " ,key
+			print "password is -->", test + "\n"
+			found = True
+			break
+		except:
+			pass
+            
 if found == True:
     print "Found " 
 else:
