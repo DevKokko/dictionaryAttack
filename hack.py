@@ -6,7 +6,7 @@ help_text = """
 
 Usage:
 python hack.py <password file> <wordlist file>
-python hack.py passwords.txt rockyou.txt
+python hack.py passwords.txt word-list.txt
 
 """
 try:
